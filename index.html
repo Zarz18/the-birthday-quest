@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>The Birthday Quest</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main id="game-shell">
+    <section id="title-screen">
+      <div class="title-card">
+        <p class="sparkles">✦ ✧ ✦</p>
+        <h1>The Birthday Quest</h1>
+        <p class="subtitle">An adventure of questionable importance</p>
+
+        <div class="credits">
+          <p>Made with:</p>
+          <p>67% friendship</p>
+          <p>24% questionable coding</p>
+          <p>15% procrastination</p>
+          <p>44% sheer determination</p>
+        </div>
+
+        <button id="play-button">PLAY</button>
+      </div>
+    </section>
+
+    <section id="game-screen" class="hidden">
+      <canvas id="game" width="960" height="540"></canvas>
+
+      <div id="hud">
+        <button id="map-button" aria-label="Open map">MAP</button>
+        <div id="quest-box">QUEST: Explore the cave</div>
+      </div>
+
+      <div id="dialogue" class="hidden">
+        <div id="speaker"></div>
+        <div id="dialogue-text"></div>
+        <button id="dialogue-next">NEXT</button>
+      </div>
+
+      <div id="night-alert" class="hidden">
+        <div id="night-alert-text">IT IS GETTING LATE.</div>
+        <button id="rest-button">GO HOME, NERD.</button>
+      </div>
+
+      <div id="touch-controls" aria-hidden="true">
+        <button data-key="ArrowUp">▲</button>
+        <div>
+          <button data-key="ArrowLeft">◀</button>
+          <button data-key="ArrowDown">▼</button>
+          <button data-key="ArrowRight">▶</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="game.js"></script>
+</body>
+</html>
