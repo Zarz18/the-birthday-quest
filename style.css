@@ -6,14 +6,21 @@ html, body {
   margin: 0;
   width: 100%;
   height: 100%;
-  background: #211a20;
-  font-family: Georgia, serif;
+  background: #181116;
+  font-family: "Courier New", Courier, monospace;
   overflow: hidden;
+  color: #ead9b8;
 }
 
 button {
-  font: inherit;
+  font-family: "Courier New", Courier, monospace;
   cursor: pointer;
+  user-select: none;
+}
+
+button:focus-visible {
+  outline: 3px solid #f2c65f;
+  outline-offset: 2px;
 }
 
 .hidden {
@@ -27,91 +34,124 @@ button {
   place-items: center;
 }
 
+/* TITLE SCREEN */
+
 #title-screen {
   width: min(100vw, 1100px);
   height: min(100vh, 650px);
   display: grid;
   place-items: center;
   background:
-    radial-gradient(circle at 20% 20%, rgba(255, 220, 150, .12) 0 2px, transparent 3px),
-    radial-gradient(circle at 80% 30%, rgba(255, 220, 150, .12) 0 2px, transparent 3px),
-    #30252b;
+    radial-gradient(circle at 50% 30%, rgba(242, 198, 95, 0.15), transparent 70%),
+    radial-gradient(circle at 20% 20%, rgba(255, 220, 150, 0.08) 0 2px, transparent 3px),
+    radial-gradient(circle at 80% 80%, rgba(255, 220, 150, 0.08) 0 2px, transparent 3px),
+    #24191b;
   image-rendering: pixelated;
+  image-rendering: crisp-edges;
 }
 
 .title-card {
-  width: min(88%, 650px);
-  padding: 42px 35px;
+  width: min(88%, 680px);
+  padding: 38px 32px;
   text-align: center;
-  color: #ffe8bd;
-  border: 4px solid #9c714d;
-  box-shadow: 10px 10px 0 #181317;
-  background: #443039;
+  color: #ead9b8;
+  border: 4px solid #9a6844;
+  outline: 2px solid #201a20;
+  box-shadow: 8px 8px 0 #120d0f;
+  background: #3a282f;
+  position: relative;
 }
 
 .sparkles {
-  color: #ffd77a;
-  letter-spacing: 14px;
-  margin: 0 0 8px;
-  font-size: 22px;
+  color: #f2c65f;
+  letter-spacing: 12px;
+  margin: 0 0 6px;
+  font-size: 20px;
 }
 
 h1 {
   margin: 0;
-  font-size: clamp(38px, 7vw, 76px);
-  line-height: .95;
+  font-size: clamp(34px, 6.5vw, 68px);
+  line-height: 0.95;
   text-transform: uppercase;
-  text-shadow: 4px 4px 0 #171116;
+  color: #fff0c2;
+  text-shadow: 4px 4px 0 #120d0f, 0 0 10px rgba(242, 198, 95, 0.3);
+  font-weight: bold;
 }
 
 .subtitle {
-  margin: 14px 0 25px;
-  color: #e7cda9;
+  margin: 12px 0 22px;
+  color: #d0b98f;
   font-style: italic;
+  font-size: 15px;
 }
 
 .credits {
   display: inline-block;
   text-align: left;
-  border: 2px solid #80604c;
-  padding: 14px 22px;
-  background: #302329;
-  line-height: 1.25;
+  border: 2px solid #70452f;
+  padding: 12px 20px;
+  background: #23171a;
+  line-height: 1.35;
+  font-size: 13px;
+  box-shadow: inset 2px 2px 0 #140d0f;
 }
 
 .credits p {
-  margin: 3px 0;
+  margin: 2px 0;
 }
 
 .credits p:first-child {
-  color: #ffd77a;
-  margin-bottom: 8px;
+  color: #f2c65f;
+  font-weight: bold;
+  margin-bottom: 6px;
 }
+
+/* BUTTONS */
 
 #play-button,
 #dialogue-next,
 #rest-button,
-#map-button {
-  border: 3px solid #1b1418;
-  background: #d9a85f;
-  color: #24191b;
+#map-button,
+#pause-button,
+.menu-card button,
+#touch-controls button {
+  border: 3px solid #201a20;
+  background: #d99a4e;
+  color: #201a20;
   font-weight: bold;
-  box-shadow: 4px 4px 0 #171116;
+  box-shadow: 4px 4px 0 #120d0f;
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }
 
 #play-button {
-  margin-top: 28px;
-  padding: 12px 45px;
-  font-size: 24px;
+  margin-top: 24px;
+  padding: 12px 42px;
+  font-size: 22px;
+}
+
+#play-button:hover,
+#dialogue-next:hover,
+#rest-button:hover,
+#map-button:hover,
+#pause-button:hover,
+.menu-card button:hover {
+  background: #f2b95c;
 }
 
 #play-button:active,
 #dialogue-next:active,
 #rest-button:active,
-#map-button:active {
-  transform: translate(3px, 3px);
-  box-shadow: 1px 1px 0 #171116;
+#map-button:active,
+#pause-button:active,
+.menu-card button:active,
+#touch-controls button:active {
+  transform: translate(2px, 2px);
+  box-shadow: 2px 2px 0 #120d0f;
 }
+
+/* GAME SCREEN */
 
 #game-screen {
   position: relative;
@@ -119,7 +159,9 @@ h1 {
   aspect-ratio: 16 / 9;
   max-height: 100vh;
   overflow: hidden;
-  background: #10141b;
+  background: #141013;
+  border: 4px solid #70452f;
+  box-shadow: 0 0 25px rgba(0, 0, 0, 0.8);
 }
 
 #game {
@@ -128,8 +170,10 @@ h1 {
   display: block;
   image-rendering: pixelated;
   image-rendering: crisp-edges;
-  background: #2e3b31;
+  background: #201a20;
 }
+
+/* HUD */
 
 #hud {
   position: absolute;
@@ -137,90 +181,330 @@ h1 {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
+  gap: 8px;
   pointer-events: none;
 }
 
-#map-button {
+.hud-left {
+  display: flex;
+  gap: 8px;
+}
+
+#map-button,
+#pause-button {
   pointer-events: auto;
-  padding: 7px 13px;
-  font-size: 14px;
+  padding: 8px 14px;
+  font-size: 13px;
 }
 
 #quest-box {
-  padding: 8px 12px;
-  color: #ffe9bd;
-  background: rgba(38, 27, 31, .88);
-  border: 2px solid #8d674c;
-  font-size: 14px;
+  padding: 8px 14px;
+  color: #fff0c2;
+  background: #2a1c22;
+  border: 3px solid #8c5c45;
+  box-shadow: 4px 4px 0 #120d0f;
+  font-size: 13px;
+  font-weight: bold;
+  text-align: right;
+  letter-spacing: 0.5px;
 }
+
+/* DIALOGUE */
 
 #dialogue,
 #night-alert {
   position: absolute;
-  left: 5%;
-  right: 5%;
+  left: 4%;
+  right: 4%;
   bottom: 4%;
-  padding: 14px 16px;
-  background: rgba(36, 27, 31, .96);
-  color: #ffe9bd;
-  border: 3px solid #9c714d;
-  box-shadow: 6px 6px 0 rgba(0,0,0,.5);
+  padding: 16px 20px;
+  background: rgba(36, 24, 30, 0.96);
+  color: #ead9b8;
+  border: 4px solid #8c5c45;
+  box-shadow: 6px 6px 0 #120d0f;
+  image-rendering: pixelated;
 }
 
 #speaker {
-  color: #ffd77a;
+  color: #f2c65f;
   font-weight: bold;
-  margin-bottom: 5px;
+  margin-bottom: 6px;
+  font-size: 15px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
 }
 
 #dialogue-text {
-  min-height: 36px;
-  padding-right: 90px;
+  min-height: 40px;
+  padding-right: 100px;
+  font-size: 14px;
+  line-height: 1.4;
 }
 
 #dialogue-next,
 #rest-button {
   position: absolute;
-  right: 12px;
-  bottom: 12px;
-  padding: 6px 12px;
+  right: 14px;
+  bottom: 14px;
+  padding: 7px 16px;
+  font-size: 13px;
 }
 
 #night-alert {
   text-align: center;
-  border-color: #b57f52;
+  border-color: #b34d42;
 }
 
 #night-alert-text {
-  font-size: clamp(18px, 3vw, 28px);
+  font-size: clamp(16px, 2.8vw, 24px);
   font-weight: bold;
   margin-bottom: 12px;
+  color: #fff0c2;
 }
 
 #rest-button {
   position: static;
 }
 
+/* OVERLAYS */
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+  display: grid;
+  place-items: center;
+  padding: 18px;
+  background: rgba(18, 13, 15, 0.82);
+  backdrop-filter: blur(2px);
+}
+
+.menu-card {
+  width: min(92%, 460px);
+  max-height: 92%;
+  overflow-y: auto;
+  padding: 24px;
+  text-align: center;
+  color: #ead9b8;
+  background: #3a282f;
+  border: 4px solid #8c5c45;
+  box-shadow: 8px 8px 0 #120d0f;
+}
+
+.menu-card h2 {
+  margin: 2px 0 16px;
+  font-size: clamp(24px, 3.5vw, 34px);
+  color: #fff0c2;
+  text-shadow: 3px 3px 0 #120d0f;
+}
+
+.menu-kicker {
+  margin: 0 0 4px;
+  color: #f2c65f;
+  font-size: 11px;
+  letter-spacing: 2px;
+  font-weight: bold;
+}
+
+.menu-card button {
+  display: block;
+  width: min(100%, 280px);
+  margin: 10px auto;
+  padding: 10px 14px;
+  font-size: 14px;
+}
+
+.menu-card .secondary-button {
+  background: #a06c58;
+}
+
+/* MANUAL */
+
+.manual-card {
+  width: min(94%, 580px);
+  padding: 20px 24px;
+}
+
+.manual-content {
+  text-align: left;
+  line-height: 1.4;
+  font-size: 13px;
+}
+
+.manual-content h3 {
+  color: #f2c65f;
+  margin: 14px 0 6px;
+  border-bottom: 1px solid #70452f;
+  padding-bottom: 3px;
+  font-size: 14px;
+}
+
+.manual-content p {
+  margin: 5px 0;
+}
+
+.manual-content hr {
+  border: 0;
+  border-top: 2px solid #70452f;
+  margin: 14px 0;
+}
+
+.manual-important {
+  text-align: center;
+  line-height: 1.5;
+}
+
+.manual-warning {
+  text-align: center;
+  font-weight: bold;
+  letter-spacing: 1px;
+  color: #f2c65f;
+  margin-top: 8px !important;
+}
+
+.seriously {
+  text-align: center;
+  font-style: italic;
+  font-weight: bold;
+  color: #d0b98f;
+}
+
+/* MAP */
+
+.map-route {
+  font-weight: bold;
+  line-height: 1.2;
+  color: #fff0c2;
+  background: #23171a;
+  padding: 12px;
+  border: 2px solid #70452f;
+  margin: 12px 0;
+}
+
+.map-route p {
+  margin: 4px 0;
+}
+
+.map-note {
+  font-size: 12px;
+  font-style: italic;
+  color: #d0b98f;
+  margin: 14px 0;
+}
+
+/* MOBILE CONTROLS */
+
 #touch-controls {
   position: absolute;
-  left: 14px;
-  bottom: 14px;
-  opacity: .78;
+  left: 12px;
+  right: 12px;
+  bottom: 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  opacity: 0.92;
+  pointer-events: none;
+}
+
+#touch-controls .dpad,
+#touch-controls .action-buttons {
+  pointer-events: auto;
 }
 
 #touch-controls button {
   width: 44px;
   height: 44px;
   margin: 2px;
-  border: 2px solid #24191b;
-  background: rgba(226, 191, 136, .8);
-  color: #24191b;
-  font-weight: bold;
-  touch-action: none;
+  background: rgba(217, 154, 78, 0.92);
+  touch-action: manipulation;
+  user-select: none;
+  -webkit-user-select: none;
+  font-size: 12px;
 }
+
+.dpad {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.dpad-row {
+  display: flex;
+}
+
+.action-buttons {
+  display: grid;
+  grid-template-columns: repeat(2, auto);
+  align-items: flex-end;
+}
+
+#touch-controls #mobile-interact {
+  width: 78px;
+  font-size: 10px;
+}
+
+#touch-controls #mobile-attack,
+#touch-controls #mobile-dodge {
+  width: 60px;
+  font-size: 9px;
+}
+
+#touch-controls #mobile-pause {
+  width: 44px;
+  font-size: 16px;
+}
+
+/* RESPONSIVE LAYOUT */
 
 @media (min-width: 800px) {
   #touch-controls {
     display: none;
+  }
+}
+
+@media (max-width: 520px) {
+  .title-card {
+    padding: 24px 14px;
+  }
+
+  .credits {
+    padding: 8px 12px;
+    font-size: 11px;
+  }
+
+  #hud {
+    inset: 6px 6px auto;
+  }
+
+  #map-button,
+  #pause-button {
+    padding: 5px 8px;
+    font-size: 10px;
+  }
+
+  #quest-box {
+    padding: 5px 8px;
+    font-size: 10px;
+    max-width: 52%;
+  }
+
+  #dialogue,
+  #night-alert {
+    left: 2%;
+    right: 2%;
+    bottom: 2%;
+    padding: 10px 12px;
+  }
+
+  #dialogue-text {
+    padding-right: 70px;
+    font-size: 12px;
+  }
+
+  #dialogue-next {
+    right: 8px;
+    bottom: 8px;
+    padding: 5px 10px;
+    font-size: 11px;
   }
 }
