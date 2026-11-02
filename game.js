@@ -806,14 +806,18 @@ function interact() {
     for (let i = 0; i < archiveEchoes.length; i++) {
       if (!archiveEchoesFound[i] && near(player, archiveEchoes[i], 55)) {
         archiveEchoesFound[i] = true;
-        const memories = [
-          ["Memory Echo", "The Mistbound Peaks shimmer into view. The Mountain Watcher stands beside Streber in the snow, pretending not to worry. The wind is cold, but the memory feels strangely safe."],
-          ["Memory Echo", "The pirate ship rocks beneath a bright blue sky. Ropes creak, the captain shouts, and someone remembers the extremely suspicious red lever. Streber laughs before he can stop himself."],
-          ["Memory Echo", "A tiny ankylosaurus waddles out from behind a rock, its little tail thumping like a drum. Streber kneels to let it sniff his hand. The whole world feels gentle for a moment."]
+        const memoryTexts = [
+          "The Mistbound Peaks shimmer into view. The Mountain Watcher stands beside Streber in the snow, pretending not to worry. The wind is cold, but the memory feels strangely safe.",
+          "The pirate ship rocks beneath a bright blue sky. Ropes creak, the captain shouts, and someone remembers the extremely suspicious red lever. Streber laughs before he can stop himself.",
+          "A tiny ankylosaurus waddles out from behind a rock, its little tail thumping like a drum. Streber kneels to let it sniff his hand. The whole world feels gentle for a moment."
         ];
-        memories[i] = ["Memory Echo", memories[i][1]];
-        memories.push(["Streber", `Memory echo ${i + 1} of 3 secured. I am, apparently, a librarian now.`]);
-        if (archiveEchoesFound.every(Boolean)) memories.push(["Narrator", "The three echoes drift together, forming a little golden envelope. The Archive Keeper beckons you over."]);
+        const memories = [
+          ["Memory Echo", memoryTexts[i]],
+          ["Streber", `Memory echo ${i + 1} of 3 secured. I am, apparently, a librarian now.`]
+        ];
+        if (archiveEchoesFound.every(Boolean)) {
+          memories.push(["Narrator", "The three echoes drift together, forming a little golden envelope. The Archive Keeper beckons you over."]);
+        }
         openDialogue(memories);
         return;
       }
