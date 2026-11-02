@@ -731,14 +731,14 @@ h1 {
 }
 
 #touch-controls button {
-  min-width: 34px;
-  min-height: 34px;
-  width: 34px;
-  height: 34px;
+  min-width: 30px;
+  min-height: 30px;
+  width: 30px;
+  height: 30px;
   margin: 1px;
   border-width: 2px;
   border-radius: 6px;
-  font-size: 11px;
+  font-size: 10px;
   box-shadow: 2px 2px 0 #201a20;
 }
 
@@ -767,12 +767,6 @@ h1 {
   font-size: 8px;
 }
 
-#touch-controls #mobile-pause {
-  min-width: 34px;
-  width: 34px;
-  font-size: 13px;
-}
-
 /* The menu should fully replace the gameplay view, not sit behind HUD/buttons. */
 .overlay {
   z-index: 40;
@@ -780,13 +774,20 @@ h1 {
   backdrop-filter: none;
 }
 
+/* When a full-screen menu is open, remove the gameplay HUD and touch
+   controls entirely from view instead of leaving them visible behind it. */
+#game-screen:has(.overlay:not(.hidden)) #hud,
+#game-screen:has(.overlay:not(.hidden)) #touch-controls {
+  visibility: hidden;
+}
+
 @media (max-width: 900px) and (orientation: landscape) {
   #touch-controls button {
-    min-width: 32px;
-    min-height: 32px;
-    width: 32px;
-    height: 32px;
-    font-size: 10px;
+    min-width: 28px;
+    min-height: 28px;
+    width: 28px;
+    height: 28px;
+    font-size: 9px;
   }
 
   #touch-controls .action-buttons button {
@@ -802,8 +803,4 @@ h1 {
     width: 46px;
   }
 
-  #touch-controls #mobile-pause {
-    min-width: 32px;
-    width: 32px;
   }
-}
