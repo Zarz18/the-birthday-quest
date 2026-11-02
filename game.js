@@ -89,7 +89,6 @@ areaTransitionName.style.cssText = `
 `;
 
 const mobileInteract = document.getElementById("mobile-interact");
-const mobilePause = document.getElementById("mobile-pause");
 
 const W = canvas.width;
 const H = canvas.height;
@@ -446,7 +445,6 @@ function closePause() {
 playButton.addEventListener("click", startGame);
 
 pauseButton.addEventListener("click", openPause);
-mobilePause.addEventListener("click", openPause);
 if (mapButton) {
   mapButton.addEventListener("click", () => {
     if (!gameStarted || paused) return;
