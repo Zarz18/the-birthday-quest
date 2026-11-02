@@ -624,3 +624,102 @@ h1 {
   }
 }
 
+
+
+/* --------------------------------
+   FINAL RESPONSIVE GAME FRAME
+   Keep the 16:9 canvas fully inside the visible viewport.
+-------------------------------- */
+
+#game-shell {
+  width: 100vw;
+  height: 100vh;
+  height: 100dvh;
+  min-height: 0;
+  overflow: hidden;
+}
+
+#game-screen {
+  width: min(100vw, calc(100vh * 16 / 9), 1100px);
+  width: min(100vw, calc(100dvh * 16 / 9), 1100px);
+  height: auto;
+  max-height: 100vh;
+  max-height: 100dvh;
+  aspect-ratio: 16 / 9;
+  flex: none;
+  overflow: hidden;
+}
+
+#game {
+  width: 100%;
+  height: 100%;
+  aspect-ratio: auto;
+  display: block;
+  object-fit: fill;
+}
+
+/* Touch controls sit over the canvas without changing its dimensions. */
+#touch-controls {
+  inset: 0;
+  z-index: 30;
+  display: none;
+  padding: clamp(6px, 1.5vw, 16px);
+  align-items: flex-end;
+}
+
+#touch-controls button {
+  min-width: clamp(38px, 5vw, 50px);
+  min-height: clamp(38px, 5vw, 50px);
+  margin: 2px;
+}
+
+#touch-controls .action-buttons {
+  gap: 6px;
+}
+
+@media (pointer: coarse) {
+  #touch-controls {
+    display: flex;
+  }
+}
+
+@media (pointer: fine) {
+  #touch-controls {
+    display: none;
+  }
+}
+
+/* Landscape phones: use the available height as well as width. */
+@media (max-width: 900px) and (orientation: landscape) {
+  #game-screen {
+    width: min(100vw, calc(100dvh * 16 / 9));
+  }
+
+  #touch-controls {
+    padding: 5px 10px;
+  }
+
+  #touch-controls button {
+    min-width: 40px;
+    min-height: 40px;
+    font-size: 12px;
+  }
+
+  #touch-controls #mobile-interact {
+    min-width: 66px;
+    font-size: 9px;
+  }
+
+  #touch-controls #mobile-attack,
+  #touch-controls #mobile-dodge {
+    min-width: 54px;
+    font-size: 9px;
+  }
+}
+
+/* Short laptop windows and compact phones still retain a complete game frame. */
+@media (max-height: 520px) {
+  #game-screen {
+    width: min(100vw, calc(100dvh * 16 / 9), 1100px);
+  }
+}
