@@ -2430,8 +2430,10 @@ function drawCanvasDialogue() {
   if (dialogueBox.classList.contains("hidden")) return;
   if (!dialogueLines.length) return;
 
-  const panelX = 28;
-  const panelW = W - 56;
+  // Keep the dialogue centered, leaving clear space for the phone controls
+  // on both sides. Text size and line spacing remain comfortably readable.
+  const panelW = Math.min(660, W * 0.68);
+  const panelX = (W - panelW) / 2;
   const textX = panelX + 24;
   const maxWidth = panelW - 48;
   const speakerFont = "bold 17px monospace";
@@ -4521,8 +4523,10 @@ function drawCanvasDialogue() {
   if (dialogueBox.classList.contains("hidden")) return;
   if (!dialogueLines.length) return;
 
-  const panelX = 28;
-  const panelW = W - 56;
+  // Keep the dialogue centered, leaving clear space for the phone controls
+  // on both sides. Text size and line spacing remain comfortably readable.
+  const panelW = Math.min(660, W * 0.68);
+  const panelX = (W - panelW) / 2;
   const textX = panelX + 24;
   const maxWidth = panelW - 48;
   const speakerFont = "bold 17px monospace";
