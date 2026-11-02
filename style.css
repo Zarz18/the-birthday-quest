@@ -111,7 +111,6 @@ h1 {
 
 #play-button,
 #dialogue-next,
-#rest-button,
 #map-button,
 #pause-button,
 .menu-card button,
@@ -133,7 +132,6 @@ h1 {
 
 #play-button:hover,
 #dialogue-next:hover,
-#rest-button:hover,
 #map-button:hover,
 #pause-button:hover,
 .menu-card button:hover {
@@ -142,7 +140,6 @@ h1 {
 
 #play-button:active,
 #dialogue-next:active,
-#rest-button:active,
 #map-button:active,
 #pause-button:active,
 .menu-card button:active,
@@ -211,17 +208,19 @@ h1 {
 
 /* DIALOGUE */
 
-#dialogue,
-#night-alert {
+#dialogue {
   position: absolute;
   left: 4%;
   right: 4%;
   bottom: 4%;
-  padding: 16px 20px;
-  background: rgba(36, 24, 30, 0.96);
+  padding: 24px 30px;
+  background-image: url('assets/ui/dialogue.png');
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  background-color: transparent;
   color: #ead9b8;
-  border: 4px solid #8c5c45;
-  box-shadow: 6px 6px 0 #120d0f;
+  border: none;
+  box-shadow: none;
   image-rendering: pixelated;
 }
 
@@ -241,29 +240,12 @@ h1 {
   line-height: 1.4;
 }
 
-#dialogue-next,
-#rest-button {
+#dialogue-next {
   position: absolute;
   right: 14px;
   bottom: 14px;
   padding: 7px 16px;
   font-size: 13px;
-}
-
-#night-alert {
-  text-align: center;
-  border-color: #b34d42;
-}
-
-#night-alert-text {
-  font-size: clamp(16px, 2.8vw, 24px);
-  font-weight: bold;
-  margin-bottom: 12px;
-  color: #fff0c2;
-}
-
-#rest-button {
-  position: static;
 }
 
 /* OVERLAYS */
@@ -283,12 +265,15 @@ h1 {
   width: min(92%, 460px);
   max-height: 92%;
   overflow-y: auto;
-  padding: 24px;
+  padding: 32px 24px;
   text-align: center;
   color: #ead9b8;
-  background: #3a282f;
-  border: 4px solid #8c5c45;
-  box-shadow: 8px 8px 0 #120d0f;
+  background-image: url('assets/ui/pause_menu.png');
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  background-color: transparent;
+  border: none;
+  box-shadow: none;
 }
 
 .menu-card h2 {
@@ -322,7 +307,13 @@ h1 {
 
 .manual-card {
   width: min(94%, 580px);
-  padding: 20px 24px;
+  padding: 28px 24px;
+  background-image: url('assets/ui/manual_panel_pc.png');
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  background-color: transparent;
+  border: none;
+  box-shadow: none;
 }
 
 .manual-content {
@@ -370,6 +361,13 @@ h1 {
 }
 
 /* MAP */
+
+#map-panel .menu-card {
+  background-image: url('assets/ui/map.png');
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  background-color: transparent;
+}
 
 .map-route {
   font-weight: bold;
@@ -488,8 +486,7 @@ h1 {
     max-width: 52%;
   }
 
-  #dialogue,
-  #night-alert {
+  #dialogue {
     left: 2%;
     right: 2%;
     bottom: 2%;
@@ -508,3 +505,122 @@ h1 {
     font-size: 11px;
   }
 }
+/* Dialogue is drawn directly onto the game canvas. */
+#dialogue {
+  display: none !important;
+}
+/* --------------------------------
+   PHONE SUPPORT
+-------------------------------- */
+
+#game-screen {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+}
+
+#game {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  touch-action: none;
+}
+
+#touch-controls {
+  position: absolute;
+  inset: 0;
+  z-index: 30;
+
+  display: none;
+  justify-content: space-between;
+  align-items: flex-end;
+
+  padding: 12px 18px;
+  pointer-events: none;
+}
+
+#touch-controls button {
+  pointer-events: auto;
+
+  min-width: 48px;
+  min-height: 48px;
+
+  border: 3px solid #302329;
+  border-radius: 8px;
+
+  background: rgba(234, 217, 184, 0.92);
+  color: #302329;
+
+  font-family: monospace;
+  font-weight: bold;
+  font-size: 17px;
+
+  box-shadow: 3px 3px 0 #201a20;
+
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.dpad {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+}
+
+.dpad-row {
+  display: flex;
+  gap: 5px;
+}
+
+.action-buttons {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 7px;
+}
+
+.action-buttons button {
+  min-width: 75px;
+  font-size: 12px;
+}
+
+/* Only show touch controls on touch-capable devices. */
+@media (pointer: coarse) {
+  #touch-controls {
+    display: flex;
+  }
+}
+
+/* Keep the game usable on smaller screens. */
+@media (max-width: 700px) {
+  #game-shell {
+    width: 100%;
+    min-height: 100vh;
+  }
+
+  #game-screen {
+    width: 100%;
+  }
+
+  #game {
+    width: 100%;
+    height: auto;
+  }
+
+  #hud {
+    font-size: 10px;
+  }
+
+  #touch-controls {
+    padding: 7px;
+  }
+
+  #touch-controls button {
+    min-width: 42px;
+    min-height: 42px;
+  }
+}
+
