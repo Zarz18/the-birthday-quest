@@ -2699,45 +2699,11 @@ function gameLoop() {
 
 draw();
 
-
-  const key = btn.dataset.key;
-
-  const press = (e) => {
-    e.preventDefault();
-    keys[key] = true;
-    btn.setPointerCapture(e.pointerId);
-  };
-
-  const release = (e) => {
-    e.preventDefault();
-    keys[key] = false;
-  };
-
-  btn.addEventListener("pointerdown", press);
-  btn.addEventListener("pointerup", release);
-  btn.addEventListener("pointercancel", release);
-  btn.addEventListener("lostpointercapture", release);
-});
-
 /* -------------------------
    DIALOGUE
 ------------------------- */
 
-dialogueNext.addEventListener("click", advanceDialogue);
-canvas.addEventListener("pointerdown", (e) => {
-  if (dialogueBox.classList.contains("hidden")) return;
 
-  const rect = canvas.getBoundingClientRect();
-
-  const scaleY = H / rect.height;
-  const clickY = (e.clientY - rect.top) * scaleY;
-
-  // Only advance when the player taps the dialogue panel.
-  if (clickY >= H - 230) {
-    e.preventDefault();
-    advanceDialogue();
-  }
-});
 
 function openDialogue(lines) {
   dialogueLines = lines;
