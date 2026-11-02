@@ -2703,21 +2703,7 @@ draw();
    DIALOGUE
 ------------------------- */
 
-dialogueNext.addEventListener("click", advanceDialogue);
-canvas.addEventListener("pointerdown", (e) => {
-  if (dialogueBox.classList.contains("hidden")) return;
 
-  const rect = canvas.getBoundingClientRect();
-
-  const scaleY = H / rect.height;
-  const clickY = (e.clientY - rect.top) * scaleY;
-
-  // Only advance when the player taps the dialogue panel.
-  if (clickY >= H - 230) {
-    e.preventDefault();
-    advanceDialogue();
-  }
-});
 
 function openDialogue(lines) {
   dialogueLines = lines;
