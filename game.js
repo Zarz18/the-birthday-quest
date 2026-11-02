@@ -594,7 +594,7 @@ canvas.addEventListener("pointerdown", (e) => {
   const clickY = (e.clientY - rect.top) * scaleY;
 
   // Only advance when the player taps the dialogue panel.
-  if (clickY >= H - 155) {
+  if (clickY >= H - 230) {
     e.preventDefault();
     advanceDialogue();
   }
@@ -2416,95 +2416,75 @@ function drawCanvasDialogue() {
   if (dialogueBox.classList.contains("hidden")) return;
   if (!dialogueLines.length) return;
 
-  const panelX = 35;
-  const panelY = H - 145;
-  const panelW = W - 70;
-  const panelH = 115;
+  const panelX = 28;
+  const panelW = W - 56;
+  const textX = panelX + 24;
+  const maxWidth = panelW - 48;
+  const speakerFont = "bold 17px monospace";
+  let bodyFontSize = 15;
+  let lineHeight = 20;
+
+  // Wrap first, then size the panel to the actual number of dialogue lines.
+  const wrapText = (fontSize) => {
+    ctx.font = fontSize + "px monospace";
+    const result = [];
+    let line = "";
+
+    for (const word of dialogueTextEl.textContent.trim().split(/\s+/)) {
+      const candidate = line ? line + " " + word : word;
+      if (line && ctx.measureText(candidate).width > maxWidth) {
+        result.push(line);
+        line = word;
+      } else {
+        line = candidate;
+      }
+    }
+
+    if (line) result.push(line);
+    return result;
+  };
+
+  let wrappedLines = wrapText(bodyFontSize);
+  // Very long lines use a slightly smaller type size rather than escaping the panel.
+  if (wrappedLines.length > 5) {
+    bodyFontSize = 13;
+    lineHeight = 17;
+    wrappedLines = wrapText(bodyFontSize);
+  }
+
+  const panelH = Math.min(H - 36, Math.max(115, 84 + wrappedLines.length * lineHeight));
+  const panelY = H - panelH - 18;
 
   // Shadow
-  drawPixelRect(
-    panelX + 5,
-    panelY + 5,
-    panelW,
-    panelH,
-    "rgba(0,0,0,.5)"
-  );
+  drawPixelRect(panelX + 5, panelY + 5, panelW, panelH, "rgba(0,0,0,.5)");
 
-  // Main panel
-  drawPixelRect(
-    panelX,
-    panelY,
-    panelW,
-    panelH,
-    "#302329"
-  );
-
-  // Inner parchment border
-  drawPixelRect(
-    panelX + 5,
-    panelY + 5,
-    panelW - 10,
-    panelH - 10,
-    "#ead9b8"
-  );
-
-  // Dark text area
-  drawPixelRect(
-    panelX + 9,
-    panelY + 9,
-    panelW - 18,
-    panelH - 18,
-    "#302329"
-  );
+  // Main panel and parchment frame
+  drawPixelRect(panelX, panelY, panelW, panelH, "#302329");
+  drawPixelRect(panelX + 5, panelY + 5, panelW - 10, panelH - 10, "#ead9b8");
+  drawPixelRect(panelX + 9, panelY + 9, panelW - 18, panelH - 18, "#302329");
 
   // Speaker name
   ctx.fillStyle = "#e8a4b2";
-  ctx.font = "bold 17px monospace";
+  ctx.font = speakerFont;
   ctx.textAlign = "left";
+  ctx.fillText(speakerEl.textContent, textX, panelY + 31);
 
-  ctx.fillText(
-    speakerEl.textContent,
-    panelX + 24,
-    panelY + 34
-  );
-
-  // Dialogue text
+  // Dialogue lines
   ctx.fillStyle = "#fff0c2";
-  ctx.font = "15px monospace";
-
-  const words = dialogueTextEl.textContent.split(" ");
-  const maxWidth = panelW - 55;
-
-  let line = "";
-  let lineY = panelY + 62;
-
-  for (const word of words) {
-    const testLine = line + word + " ";
-
-    if (ctx.measureText(testLine).width > maxWidth) {
-      ctx.fillText(line, panelX + 24, lineY);
-      line = word + " ";
-      lineY += 20;
-    } else {
-      line = testLine;
-    }
+  ctx.font = bodyFontSize + "px monospace";
+  let lineY = panelY + 57;
+  const availableBottom = panelY + panelH - 27;
+  for (const line of wrappedLines) {
+    if (lineY > availableBottom) break;
+    ctx.fillText(line, textX, lineY);
+    lineY += lineHeight;
   }
 
-  if (line) {
-    ctx.fillText(line, panelX + 24, lineY);
-  }
-
-  // Next prompt
+  // Continue prompt remains inside the panel.
   ctx.fillStyle = "#e8a4b2";
   ctx.font = "bold 12px monospace";
   ctx.textAlign = "right";
-
-  ctx.fillText(
-    "TAP TO CONTINUE  ▼",
-    panelX + panelW - 20,
-    panelY + panelH - 16
-  );
-
+  ctx.fillText("TAP TO CONTINUE  ▼", panelX + panelW - 18, panelY + panelH - 13);
   ctx.textAlign = "left";
 }
 
@@ -2620,32 +2600,32 @@ function drawFunf() {
     Math.sin(animationClock * 0.07) * 1.5
   );
 
-  // Shadow
+  // A narrower shadow keeps the silhouette visually light.
   drawPixelRect(
-    x - 19, funf.y + 28, 38, 7,
+    x - 15, funf.y + 28, 30, 6,
     "rgba(31,25,26,.35)"
   );
 
   // Hair behind the body
   drawPixelRect(x - 17, y - 31, 34, 37, "#51332f");
-  drawPixelRect(x - 20, y - 23, 8, 28, "#51332f");
-  drawPixelRect(x + 12, y - 22, 9, 30, "#51332f");
+  drawPixelRect(x - 18, y - 23, 7, 28, "#51332f");
+  drawPixelRect(x + 11, y - 22, 7, 30, "#51332f");
 
-  // Dress / tunic
-  drawPixelRect(x - 15, y + 1, 30, 19, "#d98aa2");
-  drawPixelRect(x - 19, y + 5, 38, 13, "#e8a4b2");
+  // Dress / tunic: gently tapered instead of boxy.
+  drawPixelRect(x - 13, y + 1, 26, 19, "#d98aa2");
+  drawPixelRect(x - 16, y + 5, 32, 13, "#e8a4b2");
 
-  // Skirt shape
-  drawPixelRect(x - 19, y + 16, 38, 14, "#b95f83");
-  drawPixelRect(x - 23, y + 20, 46, 5, "#d98aa2");
+  // Narrower skirt with a small hem, keeping the same outfit.
+  drawPixelRect(x - 16, y + 16, 32, 14, "#b95f83");
+  drawPixelRect(x - 18, y + 20, 36, 5, "#d98aa2");
 
-  // Sleeves
-  drawPixelRect(x - 23, y + 5, 9, 18, "#d98aa2");
-  drawPixelRect(x + 14, y + 5, 9, 18, "#d98aa2");
+  // Sleeves sit closer to the body.
+  drawPixelRect(x - 19, y + 5, 7, 16, "#d98aa2");
+  drawPixelRect(x + 12, y + 5, 7, 16, "#d98aa2");
 
   // Little hands
-  drawPixelRect(x - 22, y + 21, 7, 6, "#c88f6e");
-  drawPixelRect(x + 15, y + 21, 7, 6, "#c88f6e");
+  drawPixelRect(x - 18, y + 19, 6, 6, "#c88f6e");
+  drawPixelRect(x + 12, y + 19, 6, 6, "#c88f6e");
 
   // Legs
   drawPixelRect(x - 11, y + 29, 8, 14, "#c88f6e");
