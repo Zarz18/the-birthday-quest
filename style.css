@@ -723,3 +723,87 @@ h1 {
     width: min(100vw, calc(100dvh * 16 / 9), 1100px);
   }
 }
+
+
+/* MOBILE CONTROL POLISH + CLEAN MENUS */
+#touch-controls {
+  z-index: 30;
+}
+
+#touch-controls button {
+  min-width: 34px;
+  min-height: 34px;
+  width: 34px;
+  height: 34px;
+  margin: 1px;
+  border-width: 2px;
+  border-radius: 6px;
+  font-size: 11px;
+  box-shadow: 2px 2px 0 #201a20;
+}
+
+#touch-controls .dpad,
+#touch-controls .dpad-row {
+  gap: 2px;
+}
+
+#touch-controls .action-buttons {
+  gap: 4px;
+}
+
+#touch-controls .action-buttons button {
+  min-width: 52px;
+  min-height: 34px;
+  width: 52px;
+  height: 34px;
+  padding: 2px 3px;
+  font-size: 9px;
+  letter-spacing: 0;
+}
+
+#touch-controls #mobile-interact {
+  min-width: 60px;
+  width: 60px;
+  font-size: 8px;
+}
+
+#touch-controls #mobile-pause {
+  min-width: 34px;
+  width: 34px;
+  font-size: 13px;
+}
+
+/* The menu should fully replace the gameplay view, not sit behind HUD/buttons. */
+.overlay {
+  z-index: 40;
+  background: #181116;
+  backdrop-filter: none;
+}
+
+@media (max-width: 900px) and (orientation: landscape) {
+  #touch-controls button {
+    min-width: 32px;
+    min-height: 32px;
+    width: 32px;
+    height: 32px;
+    font-size: 10px;
+  }
+
+  #touch-controls .action-buttons button {
+    min-width: 46px;
+    width: 46px;
+    min-height: 32px;
+    height: 32px;
+    font-size: 8px;
+  }
+
+  #touch-controls #mobile-interact {
+    min-width: 54px;
+    width: 54px;
+  }
+
+  #touch-controls #mobile-pause {
+    min-width: 32px;
+    width: 32px;
+  }
+}
