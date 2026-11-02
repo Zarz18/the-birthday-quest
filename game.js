@@ -2699,26 +2699,6 @@ function gameLoop() {
 
 draw();
 
-
-  const key = btn.dataset.key;
-
-  const press = (e) => {
-    e.preventDefault();
-    keys[key] = true;
-    btn.setPointerCapture(e.pointerId);
-  };
-
-  const release = (e) => {
-    e.preventDefault();
-    keys[key] = false;
-  };
-
-  btn.addEventListener("pointerdown", press);
-  btn.addEventListener("pointerup", release);
-  btn.addEventListener("pointercancel", release);
-  btn.addEventListener("lostpointercapture", release);
-});
-
 /* -------------------------
    DIALOGUE
 ------------------------- */
